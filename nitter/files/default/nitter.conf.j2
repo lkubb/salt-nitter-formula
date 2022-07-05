@@ -1,0 +1,15 @@
+{%- macro render(val) %}
+{%-   if val is string %}"{{ val }}"
+{%-   elif val in [true, false] %}{{ val | lower }}
+{%-   else %}{{ val }}
+{%-   endif %}
+{%- endmacro %}
+
+{%- for topic, confs in nitter.config | dictsort %}
+[{{ topic | capitalize }}]
+{%-   for k, v in confs | dictsort %}
+{%-     if v is not none %}
+{{ k }} = {{ render(v) }}
+{%-     endif %}
+{%-   endfor %}
+{% endfor %}
