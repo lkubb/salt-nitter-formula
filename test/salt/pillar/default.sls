@@ -17,6 +17,7 @@ nitter:
         ephemeral: true
         pod_prefix: null
         restart_policy: on-failure
+        restart_sec: 2
         separator: null
         stop_timeout: null
     paths:
@@ -31,6 +32,7 @@ nitter:
       name: nitter
       shell: /usr/sbin/nologin
       uid: null
+      gid: null
     containers:
       nitter:
         image: docker.io/zedeus/nitter:latest

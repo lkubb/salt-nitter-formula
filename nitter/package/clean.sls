@@ -33,6 +33,9 @@ Nitter user session is not initialized at boot:
   compose.lingering_managed:
     - name: {{ nitter.lookup.user.name }}
     - enable: false
+    - onlyif:
+      - fun: user.info
+        name: {{ nitter.lookup.user.name }}
 
 Nitter user account is absent:
   user.absent:
@@ -40,11 +43,14 @@ Nitter user account is absent:
     - purge: {{ nitter.install.remove_all_data_for_sure }}
     - require:
       - Nitter is absent
+    - retry:
+        attempts: 5
+        interval: 2
 
 {%- if nitter.install.remove_all_data_for_sure %}
 
 Nitter paths are absent:
-  file.directory:
+  file.absent:
     - names:
       - {{ nitter.lookup.paths.base }}
     - require:

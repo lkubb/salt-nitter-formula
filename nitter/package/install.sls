@@ -22,6 +22,8 @@ Nitter user session is initialized at boot:
   compose.lingering_managed:
     - name: {{ nitter.lookup.user.name }}
     - enable: {{ nitter.install.rootless }}
+    - require:
+      - user: {{ nitter.lookup.user.name }}
 
 Nitter paths are present:
   file.directory:
