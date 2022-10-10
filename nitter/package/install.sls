@@ -71,3 +71,15 @@ Nitter is installed:
     - require:
       - user: {{ nitter.lookup.user.name }}
 {%- endif %}
+
+{%- if nitter.install.autoupdate_service is not none %}
+
+Podman autoupdate service is managed for Nitter:
+{%-   if nitter.install.rootless %}
+  compose.systemd_service_{{ "enabled" if nitter.install.autoupdate_service else "disabled" }}:
+    - user: {{ nitter.lookup.user.name }}
+{%-   else %}
+  service.{{ "enabled" if nitter.install.autoupdate_service else "disabled" }}:
+{%-   endif %}
+    - name: podman-auto-update.timer
+{%- endif %}

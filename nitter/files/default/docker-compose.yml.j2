@@ -17,6 +17,10 @@ services:
       interval: 30s
       timeout: 5s
       retries: 2
+{%- if nitter.install.autoupdate %}
+    labels:
+      - io.containers.autoupdate=registry
+{%- endif %}
 
   nitter-redis:
     image: {{ nitter.lookup.containers.redis.image }}
@@ -30,6 +34,10 @@ services:
       interval: 30s
       timeout: 5s
       retries: 2
+{%- if nitter.install.autoupdate %}
+    labels:
+      - io.containers.autoupdate=registry
+{%- endif %}
 
 volumes:
   nitter-redis:

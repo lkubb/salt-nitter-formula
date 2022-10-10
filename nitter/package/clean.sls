@@ -8,6 +8,18 @@
 include:
   - {{ sls_config_clean }}
 
+{%- if nitter.install.autoupdate_service %}
+
+Podman autoupdate service is disabled for Nitter:
+{%-   if nitter.install.rootless %}
+  compose.systemd_service_disabled:
+    - user: {{ nitter.lookup.user.name }}
+{%-   else %}
+  service.disabled:
+{%-   endif %}
+    - name: podman-auto-update.timer
+{%- endif %}
+
 Nitter is absent:
   compose.removed:
     - name: {{ nitter.lookup.paths.compose }}
