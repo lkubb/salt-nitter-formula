@@ -16,5 +16,6 @@ Nitter environment files are absent:
       - {{ nitter.lookup.paths.config_nitter }}
       - {{ nitter.lookup.paths.config_redis }}
       - {{ nitter.lookup.paths.config }}
+      - {{ nitter.lookup.paths.base | path_join(".saltcache.yml") }}
     - require:
       - sls: {{ sls_service_clean }}
