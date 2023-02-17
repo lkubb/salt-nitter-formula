@@ -1,8 +1,14 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
-{%- set sls_config_clean = tplroot ~ '.config.clean' %}
+{#-
+    Removes the nitter, redis containers
+    and the corresponding user account and service units.
+    Has a depency on `nitter.config.clean`_.
+    If ``remove_all_data_for_sure`` was set, also removes all data.
+#}
+
+{%- set tplroot = tpldir.split("/")[0] %}
+{%- set sls_config_clean = tplroot ~ ".config.clean" %}
 {%- from tplroot ~ "/map.jinja" import mapdata as nitter with context %}
 
 include:
@@ -40,6 +46,25 @@ Nitter compose file is absent:
     - name: {{ nitter.lookup.paths.compose }}
     - require:
       - Nitter is absent
+
+{%- if nitter.install.podman_api %}
+
+Nitter podman API is unavailable:
+  compose.systemd_service_dead:
+    - name: podman
+    - user: {{ nitter.lookup.user.name }}
+    - onlyif:
+      - fun: user.info
+        name: {{ nitter.lookup.user.name }}
+
+Nitter podman API is disabled:
+  compose.systemd_service_disabled:
+    - name: podman
+    - user: {{ nitter.lookup.user.name }}
+    - onlyif:
+      - fun: user.info
+        name: {{ nitter.lookup.user.name }}
+{%- endif %}
 
 Nitter user session is not initialized at boot:
   compose.lingering_managed:

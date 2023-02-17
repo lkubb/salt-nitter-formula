@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as nitter with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
@@ -35,11 +34,28 @@ Nitter paths are present:
     - require:
       - user: {{ nitter.lookup.user.name }}
 
+{%- if nitter.install.podman_api %}
+
+Nitter podman API is enabled:
+  compose.systemd_service_enabled:
+    - name: podman
+    - user: {{ nitter.lookup.user.name }}
+    - require:
+      - Nitter user session is initialized at boot
+
+Nitter podman API is available:
+  compose.systemd_service_running:
+    - name: podman
+    - user: {{ nitter.lookup.user.name }}
+    - require:
+      - Nitter user session is initialized at boot
+{%- endif %}
+
 Nitter compose file is managed:
   file.managed:
     - name: {{ nitter.lookup.paths.compose }}
-    - source: {{ files_switch(['docker-compose.yml', 'docker-compose.yml.j2'],
-                              lookup='Nitter compose file is present'
+    - source: {{ files_switch(["docker-compose.yml", "docker-compose.yml.j2"],
+                              lookup="Nitter compose file is present"
                  )
               }}
     - mode: '0644'
