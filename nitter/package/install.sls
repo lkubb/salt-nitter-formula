@@ -38,14 +38,14 @@ Nitter paths are present:
 
 Nitter podman API is enabled:
   compose.systemd_service_enabled:
-    - name: podman
+    - name: podman.socket
     - user: {{ nitter.lookup.user.name }}
     - require:
       - Nitter user session is initialized at boot
 
 Nitter podman API is available:
   compose.systemd_service_running:
-    - name: podman
+    - name: podman.socket
     - user: {{ nitter.lookup.user.name }}
     - require:
       - Nitter user session is initialized at boot

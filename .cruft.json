@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/lkubb/salt-template-formula-compose",
-  "commit": "249eb39f6241fe5718691b21f7e7d82b962c8aa3",
+  "commit": "d261bbd33723b1b8df5d67d58918868e3d70d76b",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -21,7 +21,7 @@
       "project_name": "nitter",
       "containers": "nitter,redis",
       "git_username": "lkubb",
-      "_lookup": {
+      "lookup": {
         "containers": {
           "nitter": {
             "image": "docker.io/zedeus/nitter:latest"
@@ -34,7 +34,7 @@
           "config": "nitter.conf"
         }
       },
-      "_settings": {
+      "settings": {
         "config": {
           "server": {
             "address": "0.0.0.0",

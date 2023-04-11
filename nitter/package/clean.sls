@@ -51,7 +51,7 @@ Nitter compose file is absent:
 
 Nitter podman API is unavailable:
   compose.systemd_service_dead:
-    - name: podman
+    - name: podman.socket
     - user: {{ nitter.lookup.user.name }}
     - onlyif:
       - fun: user.info
@@ -59,7 +59,7 @@ Nitter podman API is unavailable:
 
 Nitter podman API is disabled:
   compose.systemd_service_disabled:
-    - name: podman
+    - name: podman.socket
     - user: {{ nitter.lookup.user.name }}
     - onlyif:
       - fun: user.info
