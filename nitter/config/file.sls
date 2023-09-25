@@ -51,7 +51,7 @@ Nitter config file is managed:
     - mode: '0644'
     - user: root
     - group: {{ nitter.lookup.user.name }}
-    - makedirs: True
+    - makedirs: true
     - template: jinja
     - require:
       - user: {{ nitter.lookup.user.name }}
