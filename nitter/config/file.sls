@@ -34,7 +34,7 @@ Nitter environment files are managed:
     - template: jinja
     - require:
       - user: {{ nitter.lookup.user.name }}
-    - watch_in:
+    - require_in:
       - Nitter is installed
     - context:
         nitter: {{ nitter | json }}
@@ -55,7 +55,5 @@ Nitter config file is managed:
     - template: jinja
     - require:
       - user: {{ nitter.lookup.user.name }}
-    - watch_in:
-      - Nitter is installed
     - context:
         nitter: {{ nitter | json }}

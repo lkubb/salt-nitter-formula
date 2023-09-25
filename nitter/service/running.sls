@@ -34,3 +34,4 @@ Nitter service is running:
 {%- endif %}
     - watch:
       - Nitter is installed
+      - sls: {{ sls_config_file }}
